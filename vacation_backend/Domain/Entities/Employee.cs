@@ -7,7 +7,7 @@ namespace vacation_backend.Domain.Entities
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int AvailableDays { get; set; }
         public int UsedDays { get; set; }
         public int RemainingDays => AvailableDays - UsedDays;
@@ -21,6 +21,8 @@ namespace vacation_backend.Domain.Entities
         // FK hacia Role
         public virtual Role Role { get; set; } = null!;
         public ICollection<ExtraBenefitDay>? ExtraBenefitDays { get; set; }
+        public ICollection<VacationRequest>? VacationRequest { get; set; }
+
 
 
     }
