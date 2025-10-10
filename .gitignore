@@ -1,0 +1,6 @@
+# Archivos de caché de Visual Studio
+.vs/
+
+# Archivos de paquetes de .NET
+bin/
+obj/
