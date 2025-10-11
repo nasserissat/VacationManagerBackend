@@ -21,7 +21,7 @@ namespace vacation_backend.Domain.Entities
         // FK hacia Role
         public virtual Role Role { get; set; } = null!;
         public ICollection<ExtraBenefitDay>? ExtraBenefitDays { get; set; }
-        public ICollection<VacationRequest>? VacationRequest { get; set; }
+        public ICollection<VacationRequest>? VacationRequests { get; set; }
 
 
 

@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using vacation_backend.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<VacationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
