@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
 using vacation_backend.Application.DTOs;
+using vacation_backend.Application.DTOs.Auth;
+using vacation_backend.Application.DTOs.Role;
+using vacation_backend.Application.DTOs.User;
 using vacation_backend.Domain.Entities;
 
 namespace vacation_backend.Application.IServices
@@ -7,29 +10,29 @@ namespace vacation_backend.Application.IServices
     public interface IUserService
     {
         // Login
-        Task<AuthResponseDto> LoginUser(LoginRequestDto loginRequest);
-        Task<AuthResponseDto> RegisterUser(RegisterRequestDto registerRequest);
+        Task<AuthResponseDto> LoginUserAsync(LoginRequestDto loginRequest);
+        Task<AuthResponseDto> RegisterUserAsync(RegisterRequestDto registerRequest);
         Task<bool> ValidateCredentialsAsync(string username, string password);
 
         // Users
-        Task<List<UserListDto>> GetAllUsers(FiltersDto filters); // filtrar por nombre, status, posicion etc
-        Task<UserViewDto> GetUserById(int id);
-        Task<int> DeactivateUser(int userId);
+        Task<List<UserListDto>> GetAllUsersAsync(FiltersDto filters); // filtrar por nombre, status, posicion etc
+        Task<UserDetailedDto> GetUserByIdAsync(int id);
+        Task<int> DeactivateUserAsync(int userId);
 
 
         // Roles
-        Task<List<RoleListDto>> GetAllRoles();
-        Task<RoleViewDto> GetRoleById(int roleId);
-        Task<int> AssignRoleToUser(int userId, int roleId);
-        Task RemoveRoleFromUser(int userId, int roleId);
-        Task<int> CreateRole(RoleDataDto roleDto);
-        Task DeleteRole(int roleId);
+        Task<List<RoleListDto>> GetAllRolesAsync();
+        Task<RoleDetailedDto> GetRoleByIdAsync(int roleId);
+        Task<int> AssignRoleToUserAsync(int userId, int roleId);
+        Task RemoveRoleFromUserAsync(int userId, int roleId);
+        Task<int> CreateRoleAsync(RoleDataDto roleDto);
+        Task DeleteRoleAsync(int roleId);
 
         //Permissions
-        Task<List<PermissionListDto>> GetAllPermissions();
-        Task<List<PermissionListDto>> GetPermissionsByRole(int roleId);
-        Task DeactivatePermission(int permissionId);
-        Task<int> AssignPermissionsToRole(List<int> permissionIds, int roleId);
-        Task<int> RemovePermissionsFromRole(List<int> permissionId, int roleId);
+        Task<List<PermissionListDto>> GetAllPermissionsAsync();
+        Task<List<PermissionListDto>> GetPermissionsByRoleAsync(int roleId);
+        Task DeactivatePermissionAsync(int permissionId);
+        Task<int> AssignPermissionsToRoleAsyncAsync(List<int> permissionIds, int roleId);
+        Task<int> RemovePermissionsFromRoleAsync(List<int> permissionId, int roleId);
     }
 }
