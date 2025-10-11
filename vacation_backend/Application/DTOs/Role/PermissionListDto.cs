@@ -1,4 +1,4 @@
-﻿namespace vacation_backend.Application.DTOs
+﻿namespace vacation_backend.Application.DTOs.Role
 {
     public class PermissionListDto
     {
