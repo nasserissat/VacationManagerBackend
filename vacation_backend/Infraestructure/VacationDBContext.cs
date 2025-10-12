@@ -29,6 +29,12 @@ namespace vacation_backend.Infrastructure
                 .WithOne(v => v.Employee)
                 .HasForeignKey(v => v.EmployeeId);
 
+            // Un empleado no debe tener dos asignaciones del mismo beneficio en el mismo año:
+            modelBuilder.Entity<EmployeeExtraBenefitDay>()
+                .HasIndex(x => new { x.EmployeeId, x.ExtraBenefitDayId, x.Year })
+                .IsUnique();
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
