@@ -2,5 +2,7 @@
 {
     public class PermissionListDto
     {
+        public int Id { get; set; }
+        public string Key { get; set; } = null!;
     }
 }
