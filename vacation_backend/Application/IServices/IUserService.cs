@@ -12,27 +12,24 @@ namespace vacation_backend.Application.IServices
         // Login
         Task<AuthResponseDto> LoginUserAsync(LoginRequestDto loginRequest);
         Task<AuthResponseDto> RegisterUserAsync(RegisterRequestDto registerRequest);
-        Task<bool> ValidateCredentialsAsync(string username, string password);
+        Task<OperationResultDto> ValidateCredentialsAsync(string username, string password);
 
         // Users
-        Task<List<UserListDto>> GetAllUsersAsync(FiltersDto filters); // filtrar por nombre, status, posicion etc
+        Task<List<UserListDto>> GetAllUsersAsync();
         Task<UserDetailedDto> GetUserByIdAsync(int id);
-        Task<int> DeactivateUserAsync(int userId);
+        Task<OperationResultDto> DeactivateUserAsync(int userId);
 
 
         // Roles
         Task<List<RoleListDto>> GetAllRolesAsync();
         Task<RoleDetailedDto> GetRoleByIdAsync(int roleId);
-        Task<int> AssignRoleToUserAsync(int userId, int roleId);
-        Task RemoveRoleFromUserAsync(int userId, int roleId);
         Task<int> CreateRoleAsync(RoleDataDto roleDto);
-        Task DeleteRoleAsync(int roleId);
+        Task<OperationResultDto> UpdateRoleAsync(int roleId, RoleDataDto data);
+        Task<OperationResultDto> DeleteRoleAsync(int roleId);
 
         //Permissions
         Task<List<PermissionListDto>> GetAllPermissionsAsync();
         Task<List<PermissionListDto>> GetPermissionsByRoleAsync(int roleId);
-        Task DeactivatePermissionAsync(int permissionId);
-        Task<int> AssignPermissionsToRoleAsyncAsync(List<int> permissionIds, int roleId);
-        Task<int> RemovePermissionsFromRoleAsync(List<int> permissionId, int roleId);
+        Task<OperationResultDto> DeactivatePermissionAsync(int permissionId);
     }
 }
