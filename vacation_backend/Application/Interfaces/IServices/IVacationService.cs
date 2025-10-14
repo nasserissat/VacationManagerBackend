@@ -1,7 +1,7 @@
 ﻿using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Vacation;
 
-namespace vacation_backend.Application.IServices
+namespace vacation_backend.Application.Interfases.IServices
 {
     public interface IVacationService
     {
@@ -20,7 +20,7 @@ namespace vacation_backend.Application.IServices
         Task<OperationResultDto> RejectVacationRequestAsync(int id, int rejectedById, string? reason);
         Task<OperationResultDto> CancelVacationRequestAsync(int id, int canceledById, string? reason);
 
- 
+
 
     }
 }

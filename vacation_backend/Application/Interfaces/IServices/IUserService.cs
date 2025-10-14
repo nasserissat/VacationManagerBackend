@@ -5,7 +5,7 @@ using vacation_backend.Application.DTOs.Role;
 using vacation_backend.Application.DTOs.User;
 using vacation_backend.Domain.Entities;
 
-namespace vacation_backend.Application.IServices
+namespace vacation_backend.Application.Interfases.IServices
 {
     public interface IUserService
     {
