@@ -8,7 +8,7 @@ namespace vacation_backend.Application.DTOs.Employee
         public string LastName { get; set; } = null!;
         public string? Email { get; set; }
         public int AvailableDays { get; set; } = 14;   // Días de vacaciones disponibles
-
+        public int UsedDays { get; set; }
         public int DepartmentId { get; set; }
         public int RoleId { get; set; }
 
