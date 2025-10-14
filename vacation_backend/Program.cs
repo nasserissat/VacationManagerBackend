@@ -1,7 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using vacation_backend.Application;
+using vacation_backend.Infraestructure;
 using vacation_backend.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Application (servicios)
+builder.Services.AddApplication();
+
+// Infrastructure (repositorios, DbContext)
+builder.Services.AddInfrastructure();
+
+//Context
 builder.Services.AddDbContext<VacationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
