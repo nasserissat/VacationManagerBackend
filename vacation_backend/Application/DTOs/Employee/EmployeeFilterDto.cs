@@ -15,8 +15,9 @@ namespace vacation_backend.Application.DTOs.Employee
         public bool? HasAvailableDays { get; set; }            // RemainingDays > 0
         public bool? HasAvailableExtraBenefitDays { get; set; } // RemainingExtraBenefitDays > 0
 
-        // Aquí paso el id según de como quiera ordenar ej: 1. Orden alfabetico, 2. Dias disponibles ascendiente, etc...
-        public int? OrderBy { get; set; }
+        // Ordenamiento
+        public string? OrderBy { get; set; } // Ej: "FirstName", "LastName", "RemainingDays"
+        public bool Desc { get; set; } = false; // true = descendente
 
     }
 }
