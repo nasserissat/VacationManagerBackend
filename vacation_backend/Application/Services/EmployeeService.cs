@@ -3,6 +3,8 @@ using vacation_backend.Application.DTOs.Employee;
 using vacation_backend.Application.DTOs.Vacation;
 using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
+using vacation_backend.Domain.Entities;
+using vacation_backend.Domain.Enums;
 
 namespace vacation_backend.Application.Services
 {
@@ -13,16 +15,6 @@ namespace vacation_backend.Application.Services
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
-        }
-
-        public Task<int> CreateEmployeeAsync(EmployeeDataDto data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<OperationResultDto> DeleteEmployeeAsync(int employeeId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<List<EmployeeListDto>> GetAllEmployeesAsync(EmployeeFilterDto filters)
@@ -94,9 +86,36 @@ namespace vacation_backend.Application.Services
                     }).ToList()
             };
         }
+        public async Task<int> CreateEmployeeAsync(EmployeeDataDto data)
+        {
+            // 🔹 Validaciones básicas antes de crear
+            if (string.IsNullOrWhiteSpace(data.FirstName))
+                throw new ArgumentException("El nombre es obligatorio.");
+            if (string.IsNullOrWhiteSpace(data.LastName))
+                throw new ArgumentException("El apellido es obligatorio.");
+            if(data.AvailableDays < 0 || data.AvailableDays > 28)
+                throw new ArgumentException("El rango permitido de días disponibles es entre 0 y 28 días");
 
+            var newEmployee = new Employee
+            {
+                FirstName = data.FirstName.Trim(),
+                LastName = data.LastName.Trim(),
+                Email = data.Email?.Trim(),
+                AvailableDays = data.AvailableDays,
+                UsedDays = data.UsedDays, 
+                DepartmentId = data.DepartmentId,
+                RoleId = data.RoleId,
+                Status = EmployeeStatusEnum.Active
+            };
+            var employeeId = await _employeeRepository.CreateAsync(newEmployee);
+            return employeeId;
+        }
 
         public Task<OperationResultDto> UpdateEmployeeAsync(int employeeId, EmployeeDataDto data)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<OperationResultDto> DeleteEmployeeAsync(int employeeId)
         {
             throw new NotImplementedException();
         }
