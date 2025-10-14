@@ -15,8 +15,6 @@ namespace vacation_backend.Domain.Entities
         public int RemainingDays => AvailableDays - UsedDays;
         public bool HasAvailableDays => RemainingDays > 0;
 
-        // Cálculo de días de vacaciones extras disponibles
-        public ICollection<EmployeeExtraBenefitDay>? EmployeeExtraBenefitDays { get; set; }
         public int RemainingExtraBenefitDays =>
             EmployeeExtraBenefitDays?
                 .Where(x => x.IsAvailable)
@@ -37,7 +35,7 @@ namespace vacation_backend.Domain.Entities
         public virtual Role Role { get; set; } = null!;
 
         // referencia a la asignación concreta de ese empleado en ese año
-        public virtual EmployeeExtraBenefitDay? EmployeeExtraBenefitDay { get; set; }
+        public virtual ICollection<EmployeeExtraBenefitDay>? EmployeeExtraBenefitDays { get; set; }
 
         public ICollection<VacationRequest>? VacationRequests { get; set; }
 
