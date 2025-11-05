@@ -10,7 +10,7 @@ namespace vacation_backend.Infraestructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
+            services.AddScoped<ISettingRepository, SettingRepository>();
             return services;
         }
     }

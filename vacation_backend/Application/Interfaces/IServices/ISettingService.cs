@@ -10,8 +10,8 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<int> CreateDepartmentAsync(DepartmentDataDto data);
         Task<OperationResultDto> UpdateDepartmentAsync(int id, DepartmentDataDto data);
         Task<OperationResultDto> DeleteDepartmentAsync(int id);
-        Task<List<DepartmentDataDto>> GetAllDepartmentsAsync();
-        Task<DepartmentDataDto?> GetDepartmentByIdAsync(int id);
+        Task<List<DepartmentListDto>> GetAllDepartmentsAsync();
+        Task<DepartmentListDto?> GetDepartmentByIdAsync(int id);
         #endregion
 
         #region ExtraBenefitDay

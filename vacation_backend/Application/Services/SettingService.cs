@@ -1,15 +1,28 @@
 ﻿using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Department;
 using vacation_backend.Application.DTOs.Vacation;
+using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
+using vacation_backend.Domain.Entities;
 
 namespace vacation_backend.Application.Services
 {
     public class SettingService : ISettingService
     {
-        public Task<int> CreateDepartmentAsync(DepartmentDataDto data)
+        private readonly ISettingRepository _settingRepository;
+        public SettingService(ISettingRepository settingRepository)
         {
-            throw new NotImplementedException();
+            _settingRepository = settingRepository;
+        }
+        public async Task<int> CreateDepartmentAsync(DepartmentDataDto data)
+        {
+            var department = new Department
+            {
+                Name = data.Name
+            };
+            var result = await _settingRepository.CreateDepartmentAsync(department);
+
+            return result;
         }
 
         public Task<OperationResultDto> CreateExtraBenefitDayAsync(ExtraBenefitDayDataDto data)
@@ -37,9 +50,18 @@ namespace vacation_backend.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<DepartmentDataDto>> GetAllDepartmentsAsync()
+        public async Task<List<DepartmentListDto>> GetAllDepartmentsAsync()
         {
-            throw new NotImplementedException();
+            var departments = await _settingRepository.GetAllDepartmentsAsync();
+            if (departments != null && departments.Count == 0)
+                return new List<DepartmentListDto>();
+
+            var result = departments.Select(d => new DepartmentListDto
+            {
+                Name = d.Name
+            }).ToList();
+
+            return result;
         }
 
         public Task<List<ExtraBenefitDayDataDto>> GetAllExtraBenefitDaysAsync()
@@ -52,7 +74,7 @@ namespace vacation_backend.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<DepartmentDataDto?> GetDepartmentByIdAsync(int id)
+        public Task<DepartmentListDto?> GetDepartmentByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

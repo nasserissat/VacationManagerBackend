@@ -11,6 +11,8 @@ namespace vacation_backend.Application
             services.AddScoped<ISettingService, SettingService>();
             services.AddScoped<IVacationService, VacationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISettingService, SettingService>();
+
 
             return services;
 

@@ -19,7 +19,7 @@ namespace vacation_backend.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<List<EmployeeListDto>>> GetAllEmployees([FromQuery] EmployeeFilterDto filters)
         {
             var result = await _employeeService.GetAllEmployeesAsync(filters);
@@ -27,6 +27,13 @@ namespace vacation_backend.Controllers
                 return NotFound();
             return Ok(result);
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmployeeDetailedDto>> GetEmployeeById(int id)
+        {
+            var result = await _employeeService.GetEmployeeByIdAsync(id);
+            return result;
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<int>> CreateEmployee([FromBody] EmployeeDataDto data)
