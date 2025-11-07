@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string Position { get; set; }
-        public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
         /***
          * Director
          * Gerente

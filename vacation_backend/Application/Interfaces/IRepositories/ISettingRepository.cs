@@ -28,5 +28,11 @@ namespace vacation_backend.Application.Interfaces.IRepositories
         Task<bool> UpdateRoleAsync(Role data);
         Task<bool> DeleteRoleAsync(Role department);
         #endregion
+        #region Role-Permissions
+        // Role-Permission
+        Task<bool> AssignPermissionToRoleAsync(int roleId, int permissionId);
+        Task<bool> RemovePermissionFromRoleAsync(int roleId, int permissionId);
+        Task<List<Permission>> GetPermissionsByRoleIdAsync(int roleId);
+        #endregion
     }
 }

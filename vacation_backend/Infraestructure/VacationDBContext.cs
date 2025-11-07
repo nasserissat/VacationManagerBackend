@@ -19,10 +19,26 @@ namespace vacation_backend.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<RolePermission>()
+                .HasKey(rp => new { rp.RoleId, rp.PermissionId });
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne(rp => rp.Role)
+                .WithMany(r => r.RolePermissions)
+                .HasForeignKey(rp => rp.RoleId);
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne(rp => rp.Permission)
+                .WithMany(p => p.RolePermissions)
+                .HasForeignKey(rp => rp.PermissionId);
+
             modelBuilder.Entity<Role>()
-                .HasMany(r => r.Permissions)
-                .WithMany(p => p.Roles)
-                .UsingEntity(j => j.ToTable("RolePermissions"));
+                .Property(r => r.Position)
+                .IsRequired();
+
+            modelBuilder.Entity<Permission>()
+                .Property(p => p.Key)
+                .IsRequired();
 
             modelBuilder.Entity<Employee>()
                 .HasMany(e => e.VacationRequests)
