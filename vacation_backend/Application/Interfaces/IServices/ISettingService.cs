@@ -1,5 +1,6 @@
 ﻿using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Department;
+using vacation_backend.Application.DTOs.Role;
 using vacation_backend.Application.DTOs.Vacation;
 
 namespace vacation_backend.Application.Interfases.IServices
@@ -27,6 +28,20 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<OperationResultDto> UpdateHolidayAsync(int id, HolidayDataDto data);
         Task<OperationResultDto> DeleteHolidayAsync(int id);
         Task<List<HolidayDataDto>> GetAllHolidaysAsync();
+        #endregion
+
+        #region Role
+        Task<RoleListDto> GetRoleByIdAsync(int id);
+        Task<List<RoleListDto>> GetAllRolesAsync();
+        Task<int> CreateRoleAsync(RoleDataDto data);
+        Task<OperationResultDto> UpdateRoleAsync(int id, RoleDataDto data);
+        #endregion
+
+        #region Permisisons
+        Task<PermissionListDto> GetPermissionByIdAsync(int id);
+        Task<List<PermissionListDto>> GetAllPermissionsAsync();
+        Task<int> CreatePermission(PermissionDataDto data);
+        Task<OperationResultDto> UpdatePermissionAsync(int id, PermissionDataDto data);
         #endregion
 
     }

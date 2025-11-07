@@ -22,9 +22,11 @@ namespace vacation_backend.Infraestructure.Repositories
             return department.Id;
         }
 
-        public Task<bool> DeleteDepartmentAsync(int id)
+        public async Task<bool> DeleteDepartmentAsync(Department department)
         {
-            throw new NotImplementedException();
+            _context.Departments.Remove(department);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public Task<List<Department>> GetAllDepartmentsAsync()
@@ -32,14 +34,19 @@ namespace vacation_backend.Infraestructure.Repositories
             return _context.Departments.ToListAsync();
         }
 
-        public Task<Department?> GetDepartmentByIdAsync(int id)
+        public async Task<Department?> GetDepartmentByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Departments.FindAsync(id);
         }
-
-        public Task<bool> UpdateDepartmentAsync(Department data)
+        public async Task<bool> UpdateDepartmentAsync(Department data)
         {
-            throw new NotImplementedException();
+            var existingDepartment = await _context.Departments.FindAsync(data.Id);
+            if (existingDepartment == null)
+                return false;
+            existingDepartment.Name = data.Name;
+            return await _context.SaveChangesAsync() > 0;
+
+
         }
     }
 }
