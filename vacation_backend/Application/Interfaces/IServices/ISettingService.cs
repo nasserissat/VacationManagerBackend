@@ -44,5 +44,10 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<OperationResultDto> UpdatePermissionAsync(int id, PermissionDataDto data);
         #endregion
 
+        #region Role-Permissions
+        Task<OperationResultDto> AssignPermissionToRoleAsync(int roleId, int permissionId);
+        Task<OperationResultDto> RemovePermissionFromRoleAsync(int roleId, int permissionId);
+        Task<List<PermissionListDto>> GetPermissionsByRoleIdAsync(int roleId);
+        #endregion
     }
 }

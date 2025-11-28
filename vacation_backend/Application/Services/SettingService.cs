@@ -206,5 +206,52 @@ namespace vacation_backend.Application.Services
             throw new NotImplementedException();
         }
         #endregion
+        #region Role-Permissions
+        public async Task<OperationResultDto> AssignPermissionToRoleAsync(int roleId, int permissionId)
+        {
+            var role = await _settingRepository.GetRoleByIdAsync(roleId);
+            if (role == null)
+                return new OperationResultDto { Success = false, Message = $"Role {roleId} no existe" };
+
+            var permission = await _settingRepository.GetPermissionByIdAsync(permissionId);
+            if (permission == null)
+                return new OperationResultDto { Success = false, Message = $"Permission {permissionId} no existe" };
+
+            var ok = await _settingRepository.AssignPermissionToRoleAsync(roleId, permissionId);
+            return new OperationResultDto
+            {
+                Success = ok,
+                Message = ok ? "Permiso asignado al rol" : "No se pudo asignar el permiso",
+                AffectedRows = ok ? 1 : 0
+            };
+        }
+
+        public async Task<OperationResultDto> RemovePermissionFromRoleAsync(int roleId, int permissionId)
+        {
+            var ok = await _settingRepository.RemovePermissionFromRoleAsync(roleId, permissionId);
+            return new OperationResultDto
+            {
+                Success = ok,
+                Message = ok ? "Permiso removido del rol" : "El rol no tenía ese permiso",
+                AffectedRows = ok ? 1 : 0
+            };
+        }
+        public async Task<List<PermissionListDto>> GetPermissionsByRoleIdAsync(int roleId)
+        {
+            var permissions = await _settingRepository.GetPermissionsByRoleIdAsync(roleId);
+            if (permissions == null || !permissions.Any())
+                return new List<PermissionListDto>();
+            var permissionDtos = permissions.Select(p => new PermissionListDto
+            {
+                Id = p.Id,
+                Key = p.Key,
+                Description = p.Description
+            }).ToList();
+
+            return permissionDtos;
+
+        }
+
+        #endregion 
     }
 }
