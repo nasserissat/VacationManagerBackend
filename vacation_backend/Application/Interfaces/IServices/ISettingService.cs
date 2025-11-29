@@ -8,11 +8,11 @@ namespace vacation_backend.Application.Interfases.IServices
     public interface ISettingService
     {
         #region Department
+        Task<List<DepartmentListDto>> GetAllDepartmentsAsync();
+        Task<DepartmentListDto?> GetDepartmentByIdAsync(int id);
         Task<int> CreateDepartmentAsync(DepartmentDataDto data);
         Task<OperationResultDto> UpdateDepartmentAsync(int id, DepartmentDataDto data);
         Task<OperationResultDto> DeleteDepartmentAsync(int id);
-        Task<List<DepartmentListDto>> GetAllDepartmentsAsync();
-        Task<DepartmentListDto?> GetDepartmentByIdAsync(int id);
         #endregion
 
         #region ExtraBenefitDay
@@ -21,8 +21,6 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<OperationResultDto> CreateExtraBenefitDayAsync(ExtraBenefitDayDataDto data);
         Task<OperationResultDto> UpdateExtraBenefitDayAsync(int id, ExtraBenefitDayDataDto data);
         Task<OperationResultDto> DeleteExtraBenefitDayAsync(int id);
-        Task<List<ExtraBenefitDayDataDto>> GetAllExtraBenefitDaysAsync();
-        Task<ExtraBenefitDayDataDto?> GetExtraBenefitDayByIdAsync(int id);
         #endregion
 
         #region Holidays
@@ -33,8 +31,8 @@ namespace vacation_backend.Application.Interfases.IServices
         #endregion
 
         #region Role
-        Task<RoleListDto> GetRoleByIdAsync(int id);
         Task<List<RoleListDto>> GetAllRolesAsync();
+        Task<RoleListDto> GetRoleByIdAsync(int id);
         Task<int> CreateRoleAsync(RoleDataDto data);
         Task<OperationResultDto> UpdateRoleAsync(int id, RoleDataDto data);
         #endregion

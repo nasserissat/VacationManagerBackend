@@ -19,17 +19,5 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<UserDetailedDto> GetUserByIdAsync(int id);
         Task<OperationResultDto> DeactivateUserAsync(int userId);
 
-
-        // Roles
-        Task<List<RoleListDto>> GetAllRolesAsync();
-        Task<RoleDetailedDto> GetRoleByIdAsync(int roleId);
-        Task<int> CreateRoleAsync(RoleDataDto roleDto);
-        Task<OperationResultDto> UpdateRoleAsync(int roleId, RoleDataDto data);
-        Task<OperationResultDto> DeleteRoleAsync(int roleId);
-
-        //Permissions
-        Task<List<PermissionListDto>> GetAllPermissionsAsync();
-        Task<List<PermissionListDto>> GetPermissionsByRoleAsync(int roleId);
-        Task<OperationResultDto> DeactivatePermissionAsync(int permissionId);
     }
 }

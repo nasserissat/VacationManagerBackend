@@ -5,6 +5,7 @@ using vacation_backend.Application.DTOs.Vacation;
 using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
 using vacation_backend.Domain.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace vacation_backend.Application.Services
 {
@@ -30,6 +31,7 @@ namespace vacation_backend.Application.Services
 
             return result;
         }
+
         public async Task<DepartmentListDto?> GetDepartmentByIdAsync(int id)
         {
             var department = await _settingRepository.GetDepartmentByIdAsync(id);
@@ -39,6 +41,7 @@ namespace vacation_backend.Application.Services
             };
             return departmentDto;
         }
+
         public async Task<int> CreateDepartmentAsync(DepartmentDataDto data)
         {
             var department = new Department
@@ -69,6 +72,7 @@ namespace vacation_backend.Application.Services
                 AffectedRows = result ? 1 : 0
             };
         }
+
         public async Task<OperationResultDto> DeleteDepartmentAsync(int id)
         {
             var department = await _settingRepository.GetDepartmentByIdAsync(id);
@@ -92,19 +96,43 @@ namespace vacation_backend.Application.Services
         #region Permissions 
         public async Task<List<PermissionListDto>> GetAllPermissionsAsync()
         {
-            throw new NotImplementedException();
+            var permissions = await _settingRepository.GetAllPermissionsAsync();
+
+
+            if (permissions != null && permissions.Count == 0)
+                return new List<PermissionListDto>();
+            var result = permissions.Select(p => new PermissionListDto
+            {
+                Id = p.Id,
+                Key = p.Key,
+                Description = p.Description ?? string.Empty
+            }).ToList();
+            return result;
         }
+
 
         public async Task<PermissionListDto> GetPermissionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var permission = await _settingRepository.GetPermissionByIdAsync(id);
+            var permissionDto = new PermissionListDto
+            {
+                Id = permission.Id,
+                Key = permission.Key,
+                Description = permission.Description ?? string.Empty
+            };
+            return permissionDto;
         }
 
         public async Task<int> CreatePermission(PermissionDataDto data)
         {
-            throw new NotImplementedException();
+            var permission = new Permission
+            {
+                Key = data.Name,
+                Description = data.Description ?? string.Empty,
+            };
+            var result = await _settingRepository.CreatePermissionAsync(permission); 
+            return result;
         }
-        
 
         public async Task<OperationResultDto> UpdatePermissionAsync(int id, PermissionDataDto data)
         {
@@ -115,7 +143,7 @@ namespace vacation_backend.Application.Services
             {
                 Id = id,
                 Key = data.Name,
-                Description = data.Description
+                Description = data.Description ?? string.Empty
             };
             var result = await _settingRepository.UpdatePermissionAsync(permission);
 
@@ -132,7 +160,16 @@ namespace vacation_backend.Application.Services
 
         public async Task<List<RoleListDto>> GetAllRolesAsync()
         {
-            throw new NotImplementedException();
+            var roles = new List<Role>();
+            roles = await _settingRepository.GetAllRolesAsync();
+            if(roles != null && roles.Count == 0) return new List<RoleListDto>();
+            var rolesDto = roles.Select(r => new RoleListDto
+            {
+                Id = r.Id,
+                Name = r.Position,
+                PermissionsCount = r.RolePermissions != null ? r.RolePermissions.Count : 0
+            }).ToList();
+            return rolesDto;
         }
         public async Task<RoleListDto> GetRoleByIdAsync(int id)
         {
@@ -165,9 +202,21 @@ namespace vacation_backend.Application.Services
         #endregion
 
         #region ExtraBenefitDays
-        public Task<List<ExtraBenefitDayDataDto>> GetAllExtraBenefitDaysAsync()
+        public async Task<List<ExtraBenefitDayListDto>> GetAllExtraBenefitDaysAsync()
         {
-            throw new NotImplementedException();
+             var extraBenefitDays = new List<ExtraBenefitDay>();
+            extraBenefitDays = await _settingRepository.GetAllExtraBenefitDaysAsync();
+            if(extraBenefitDays != null && extraBenefitDays.Count == 0) return new List<ExtraBenefitDayListDto>();
+            var extraBenefitDaysDto = extraBenefitDays.Select(ebd => new ExtraBenefitDayListDto
+            {
+                Id = ebd.Id,
+                Name = ebd.Name,
+                DaysGranted = ebd.DaysGranted,
+                ValidFrom = ebd.ValidFrom,
+                ValidTo = ebd.ValidTo,
+                Status = ebd.Status
+            }).ToList();    
+            return extraBenefitDaysDto;
         }
         public Task<ExtraBenefitDayDataDto?> GetExtraBenefitDayByIdAsync(int id)
         {
