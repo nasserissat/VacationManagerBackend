@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Security;
+using vacation_backend.Application.DTOs;
 using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Domain.Entities;
 using vacation_backend.Infrastructure;
@@ -48,6 +49,97 @@ namespace vacation_backend.Infraestructure.Repositories
             return true;
         }
         #endregion
+
+        #region ExtraBenefitDays
+        public Task<List<ExtraBenefitDay>> GetAllExtraBenefitDaysAsync()
+        {
+            return _context.ExtraBenefitDays.ToListAsync();
+        }
+        public async Task<List<EmployeeExtraBenefitDay>> GetPendingEmployeeExtraBenefitDaysAsync(int employeeId)
+        {
+            var currentYear = DateTime.UtcNow.Year;
+
+            return await _context.EmployeeExtraBenefitDays
+                .Include(e => e.ExtraBenefitDay)
+                .Where(e =>
+                    e.EmployeeId == employeeId &&
+                    e.Year == currentYear &&
+                    e.IsAvailable)
+                .ToListAsync();
+        }
+
+        public async Task<int> CreateExtraBenefitDayAsync(ExtraBenefitDay data)
+        {
+            _context.ExtraBenefitDays.Add(data);
+            await _context.SaveChangesAsync();
+            return data.Id;
+        }
+        public async Task<bool> UpdateExtraBenefitDayAsync(int id, ExtraBenefitDay data)
+        {
+            var existingExtraBenefitDay = await _context.ExtraBenefitDays.FindAsync(data.Id);
+            if (existingExtraBenefitDay == null)
+                return false;
+            existingExtraBenefitDay.Name = data.Name;
+            existingExtraBenefitDay.DaysGranted = data.DaysGranted;
+            existingExtraBenefitDay.ValidFrom = data.ValidFrom;
+            existingExtraBenefitDay.ValidTo = data.ValidTo;
+            existingExtraBenefitDay.Status = data.Status;
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> DeleteExtraBenefitDayAsync(int id)
+        {
+            var existing = await _context.ExtraBenefitDays.FindAsync(id);
+
+            if (existing == null)
+                return false;
+
+            _context.ExtraBenefitDays.Remove(existing);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        #endregion
+
+        #region Holidays
+        public Task<List<Holiday>> GetAllHolidaysAsync()
+        {
+            return _context.Holidays.ToListAsync();
+        }
+        public async Task<int> CreateHolidayAsync(Holiday data)
+        {
+            _context.Holidays.Add(data);
+            await _context.SaveChangesAsync();
+            return data.Id;
+        }
+        public async Task<bool> UpdateHolidayAsync(int id, Holiday data)
+        {
+            var existingHoliday = await _context.Holidays.FindAsync(data.Id);
+            if (existingHoliday == null)
+                return false;
+
+            existingHoliday.Name = data.Name;
+            existingHoliday.Year = data.Year;
+            existingHoliday.StartDate = data.StartDate;
+            existingHoliday.EndDate = data.EndDate;
+            existingHoliday.Status = data.Status;
+
+            _context.Holidays.Update(existingHoliday);
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async  Task<bool> DeleteHolidayAsync(int id)
+        {
+            var existing = await _context.Holidays.FindAsync(id);
+
+            if (existing == null)
+                return false;
+
+            _context.Holidays.Remove(existing);
+
+            return await _context.SaveChangesAsync() > 0;
+
+        }
+
+        #endregion 
 
         #region Role-Permissions
         public async Task<bool> AssignPermissionToRoleAsync(int roleId, int permissionId)

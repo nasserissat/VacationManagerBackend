@@ -16,6 +16,8 @@ namespace vacation_backend.Application.Interfases.IServices
         #endregion
 
         #region ExtraBenefitDay
+        Task<List<ExtraBenefitDayListDto>> GetAllExtraBenefitDaysAsync();
+        Task<ExtraBenefitDayDataDto?> GetExtraBenefitDayByIdAsync(int id);
         Task<OperationResultDto> CreateExtraBenefitDayAsync(ExtraBenefitDayDataDto data);
         Task<OperationResultDto> UpdateExtraBenefitDayAsync(int id, ExtraBenefitDayDataDto data);
         Task<OperationResultDto> DeleteExtraBenefitDayAsync(int id);

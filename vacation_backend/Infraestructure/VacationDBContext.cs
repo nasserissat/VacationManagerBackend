@@ -16,6 +16,7 @@ namespace vacation_backend.Infrastructure
         public DbSet<Department> Departments { get; set; }
         public DbSet<VacationRequest> VacationRequests { get; set; }
         public DbSet<ExtraBenefitDay> ExtraBenefitDays { get; set; }
+        public DbSet<EmployeeExtraBenefitDay> EmployeeExtraBenefitDays { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

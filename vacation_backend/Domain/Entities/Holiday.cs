@@ -6,7 +6,7 @@ namespace vacation_backend.Domain.Entities
     public class Holiday
     {
         public int Id { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public string Name { get; set; } // ej dia de las mercedes, dia de independencia, semana santa, dia de duarte, reyes, navidad etc...
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; } // en caso de semana santa son dos dias seguidos normalmente de jueves a viernes laboral por eso puse EndDate como opcional porque la mayoria dura solo 1 día

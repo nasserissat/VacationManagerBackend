@@ -11,6 +11,7 @@ namespace vacation_backend.Application.DTOs.Vacation
 
         // Auditoría de creación
         public int CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         // Solo requerido si VacationType == ExtraBenefitDay
         public int? ExtraBenefitDayId { get; set; }

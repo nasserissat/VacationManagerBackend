@@ -20,5 +20,6 @@
         public bool IsExpired => Year < DateTime.UtcNow.Year;
         public int RemainingDays => Math.Max(ExtraBenefitDay.DaysGranted - UsedDays, 0);
         public bool IsAvailable => RemainingDays > 0 && !IsExpired;
+
     }
 }
