@@ -1,6 +1,6 @@
 ﻿namespace vacation_backend.Domain.Entities
 {
-    public class EmployeeVacationbalance
+    public class EmployeeVacationBalance
     {
         public int Id { get; set; }
 

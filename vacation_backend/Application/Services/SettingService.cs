@@ -5,7 +5,7 @@ using vacation_backend.Application.DTOs.Vacation;
 using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
 using vacation_backend.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Runtime.InteropServices.JavaScript.JSType ;
 
 namespace vacation_backend.Application.Services
 {
@@ -255,6 +255,7 @@ namespace vacation_backend.Application.Services
             throw new NotImplementedException();
         }
         #endregion
+
         #region Role-Permissions
         public async Task<OperationResultDto> AssignPermissionToRoleAsync(int roleId, int permissionId)
         {

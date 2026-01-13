@@ -11,6 +11,8 @@ namespace vacation_backend.Infraestructure
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ISettingRepository, SettingRepository>();
+            services.AddScoped<IVacationRepository, VacationRepository>();
+
             return services;
         }
     }
