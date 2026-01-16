@@ -28,7 +28,9 @@ namespace vacation_backend.Controllers
         public async Task<ActionResult<EmployeeDetailedDto>> GetEmployeeById(int id)
         {
             var result = await _employeeService.GetEmployeeByIdAsync(id);
-            return result;
+            if (result == null)
+                return NotFound();
+            return Ok(result);
         }
 
 
@@ -45,7 +47,9 @@ namespace vacation_backend.Controllers
         public async Task<ActionResult<OperationResultDto>> UpdateEmployee(int id, EmployeeDataDto data)
         {
             var result = await _employeeService.UpdateEmployeeAsync(id, data);
-            return result;
+            if (!result.Success)
+                return NotFound(result.Message);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
