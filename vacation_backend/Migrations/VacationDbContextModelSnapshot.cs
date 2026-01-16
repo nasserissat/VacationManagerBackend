@@ -22,21 +22,6 @@ namespace vacation_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PermissionRole", b =>
-                {
-                    b.Property<int>("PermissionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PermissionsId", "RolesId");
-
-                    b.HasIndex("RolesId");
-
-                    b.ToTable("RolePermissions", (string)null);
-                });
-
             modelBuilder.Entity("vacation_backend.Domain.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -51,7 +36,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Employee", b =>
@@ -71,7 +56,7 @@ namespace vacation_backend.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeExtraBenefitDayId")
+                    b.Property<int>("EmployeeCode")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -97,7 +82,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.EmployeeExtraBenefitDay", b =>
@@ -133,7 +118,7 @@ namespace vacation_backend.Migrations
                     b.HasIndex("EmployeeId", "ExtraBenefitDayId", "Year")
                         .IsUnique();
 
-                    b.ToTable("EmployeeExtraBenefitDay", (string)null);
+                    b.ToTable("EmployeeExtraBenefitDays");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.ExtraBenefitDay", b =>
@@ -162,7 +147,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExtraBenefitDays", (string)null);
+                    b.ToTable("ExtraBenefitDays");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Holiday", b =>
@@ -186,12 +171,12 @@ namespace vacation_backend.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Year")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Holidays", (string)null);
+                    b.ToTable("Holidays");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Permission", b =>
@@ -211,7 +196,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Role", b =>
@@ -228,7 +213,28 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.RolePermission", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("GrantedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GrantedByUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.User", b =>
@@ -262,7 +268,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequest", b =>
@@ -317,22 +323,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("LastModifiedById");
 
-                    b.ToTable("VacationRequests", (string)null);
-                });
-
-            modelBuilder.Entity("PermissionRole", b =>
-                {
-                    b.HasOne("vacation_backend.Domain.Entities.Permission", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vacation_backend.Domain.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("VacationRequests");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Employee", b =>
@@ -371,6 +362,25 @@ namespace vacation_backend.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("ExtraBenefitDay");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.RolePermission", b =>
+                {
+                    b.HasOne("vacation_backend.Domain.Entities.Permission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vacation_backend.Domain.Entities.Role", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.User", b =>
@@ -423,6 +433,16 @@ namespace vacation_backend.Migrations
             modelBuilder.Entity("vacation_backend.Domain.Entities.ExtraBenefitDay", b =>
                 {
                     b.Navigation("EmployeeExtraBenefitDays");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.Permission", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }
