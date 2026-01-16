@@ -6,7 +6,7 @@ namespace vacation_backend.Application.DTOs.Vacation
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public StatusEnum Status { get; set; }
