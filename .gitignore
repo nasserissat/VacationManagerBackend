@@ -4,3 +4,4 @@
 # Archivos de paquetes de .NET
 bin/
 obj/
+/vacation_backend/appsettings.json
