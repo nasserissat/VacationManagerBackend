@@ -15,6 +15,10 @@ namespace vacation_backend.Domain.Entities
         public int RoleId { get; set; }
         public EmployeeStatusEnum Status { get; set; }
 
+        // Propiedades de vacaciones
+        public int AvailableDays { get; set; }
+        public int UsedDays { get; set; }
+
         public virtual Department Department { get; set; } = null!;
         public virtual Role Role { get; set; } = null!;
 
@@ -28,7 +32,8 @@ namespace vacation_backend.Domain.Entities
                 .Sum(x => x.RemainingDays) ?? 0;
 
         // Cálculo para saber si tiene vacaciones disponibles
-
+        public int RemainingDays => AvailableDays - UsedDays;
+        public bool HasAvailableDays => RemainingDays > 0;
         public bool HasAvailableExtraBenefitDays => RemainingExtraBenefitDays > 0;
 
     }

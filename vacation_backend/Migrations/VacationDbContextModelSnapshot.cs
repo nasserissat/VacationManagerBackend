@@ -51,7 +51,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Employee", b =>
@@ -97,7 +97,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.EmployeeExtraBenefitDay", b =>
@@ -133,7 +133,7 @@ namespace vacation_backend.Migrations
                     b.HasIndex("EmployeeId", "ExtraBenefitDayId", "Year")
                         .IsUnique();
 
-                    b.ToTable("EmployeeExtraBenefitDay");
+                    b.ToTable("EmployeeExtraBenefitDay", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.ExtraBenefitDay", b =>
@@ -162,7 +162,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExtraBenefitDays");
+                    b.ToTable("ExtraBenefitDays", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Holiday", b =>
@@ -191,7 +191,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Holidays");
+                    b.ToTable("Holidays", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Permission", b =>
@@ -211,7 +211,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Role", b =>
@@ -228,7 +228,7 @@ namespace vacation_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.User", b =>
@@ -262,7 +262,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequest", b =>
@@ -317,7 +317,7 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("LastModifiedById");
 
-                    b.ToTable("VacationRequests");
+                    b.ToTable("VacationRequests", (string)null);
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
