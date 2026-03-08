@@ -18,14 +18,14 @@ export const router = createRouter({
     { path: '/',
        component: MainLayout,
        children: [
-        { path: '', name: 'dashboard', component: DashboardPage } ,
+        { path: '/dashboard', name: 'dashboard', component: DashboardPage } ,
         { path: '/leaves', name: 'leaves', component: LeavesPage },
         { path: '/employees', name: 'employees', component: EmployeeModule },
         /*Settings module*/
-        { path: 'config/employees', name: 'config-employees', component: EmployeePage},
-        { path: 'config/departments', name: 'config-departments', component: DepartmentPage},
-        { path: 'config/extra-days', name: 'config-extra-days', component: ExtraBenefitDayPage },
-        { path: 'config/holidays', name: 'config-holidays', component: HolidayPage },
+        { path: '/config/employees', name: 'config-employees', component: EmployeePage},
+        { path: '/config/departments', name: 'config-departments', component: DepartmentPage},
+        { path: '/config/extra-days', name: 'config-extra-days', component: ExtraBenefitDayPage },
+        { path: '/config/holidays', name: 'config-holidays', component: HolidayPage },
         /* Admin module */
         { path: 'admin/users', name: 'admin-users', component: UsersPage },
         { path: 'admin/roles', name: 'admin-roles', component: RolePage },

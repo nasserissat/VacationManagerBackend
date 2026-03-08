@@ -346,14 +346,22 @@ body{
 }
 
 .nav-link{
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 8px;
-  transition: background .2s ease;
+  color: var(--text);
+  text-decoration: none;
 }
 
-.nav-link:hover{
-  background: var(--gray-100);
+
+
+.nav-link-exact-active{
+  background: var(--primary);
+  transition: background .0.5s ease;
+  color: var(--white);
+  text-decoration: none;
 }
 
 
@@ -399,10 +407,19 @@ body{
   color: var(--text);
   cursor: pointer;
   transition: background .2s ease;
+  text-decoration: none;
 }
 
 .dropdown-item:hover{
   background: var(--gray-100);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.dropdown-item-exact-active{
+  background: var(--gray-100);
+  color: var(--primary);
+  font-weight: 600;
 }
 .dropdown-icon{
 
