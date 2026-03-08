@@ -1,0 +1,479 @@
+:root{
+
+  /* colores */
+
+  --primary:#1B4F8C;
+  --primary-hover:#012E63;
+  --secondary:#FF6A1A;
+
+
+  --text:#2c2c2c;
+  --text-light:#6b7280;
+
+  --bg:#f4f6fb;
+  --white:#ffffff;
+
+--danger:oklch(63.7% 0.237 25.331);
+--success:oklch(72.3% 0.219 149.579);
+--info: oklch(68.5% 0.169 237.323);
+--warning: oklch(79.5% 0.184 86.047);
+
+
+  --gray-50:#fafafa;
+  --gray-100:#f1f1f1;
+  --gray-200:#f3f4f6;
+  --gray-300:#d1d5db;
+  --gray-400:#9ca3af;
+  --gray-500:#6b7280;
+  --gray-700:#374151;
+  --gray-900:#111827;
+
+  --danger:#ef4444;
+
+  --border:#e5e7eb;
+
+  /* sombras */
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);
+  --shadow:0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg:0 10px 25px rgba(0,0,0,0.15);
+
+  /* border radius */
+
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:16px;
+
+}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
+  background:var(--bg);
+  color:var(--text);
+}
+ /* A continuación se aplican las clases CSS inspiradas en Tailwind CSS para facilitar la escritura del diseño */
+
+/* Layout */
+
+.flex{
+  display:flex;
+}
+
+.flex-col{
+  flex-direction:column;
+}
+
+.items-center{
+  align-items:center;
+}
+
+.items-start{
+  align-items:flex-start;
+}
+
+.justify-center{
+  justify-content:center;
+}
+
+.justify-between{
+  justify-content:space-between;
+}
+
+.gap-1{ gap:4px; }
+.gap-2{ gap:8px; }
+.gap-3{ gap:12px; }
+.gap-4{ gap:16px; }
+.gap-5{ gap:20px; }
+
+.w-full{
+  width:100%;
+}
+
+.h-full{
+  height:100%;
+}
+
+/* Padding */
+.p-1{ padding:4px; }
+.p-2{ padding:8px; }
+.p-3{ padding:12px; }
+.p-4{ padding:16px; }
+.p-5{ padding:20px; }
+
+.px-2{ padding-left:8px; padding-right:8px; }
+.px-3{ padding-left:12px; padding-right:12px; }
+.px-4{ padding-left:16px; padding-right:16px; }
+
+.py-2{ padding-top:8px; padding-bottom:8px; }
+.py-3{ padding-top:12px; padding-bottom:12px; }
+.py-4{ padding-top:16px; padding-bottom:16px; }
+
+/* Margin */
+.m-1{ margin:4px; }
+.m-2{ margin:8px; }
+
+.mt-1{ margin-top:4px; }
+.mt-2{ margin-top:8px; }
+.mt-3{ margin-top:12px; }
+.mt-4{ margin-top:16px; }
+
+.mb-2{ margin-bottom:8px; }
+.mb-4{ margin-bottom:16px; }
+
+.ml-auto{
+  margin-left:auto;
+}
+
+/* Background */
+.bg-white{
+  background:white;
+}
+
+.bg-gray{
+  background:var(--gray-100);
+}
+
+.bg-primary{
+  background:var(--primary);
+}
+
+.bg-primary:hover{
+  background:var(--primary-hover);
+}
+.bg-danger{
+  background:var(--danger);
+}
+.bg-success{
+  background:var(--success);
+}
+
+/* Texto */
+.text-sm{
+  font-size:14px;
+}
+
+.text-md{
+  font-size:16px;
+}
+
+.text-lg{
+  font-size:20px;
+}
+
+.text-xl{
+  font-size:24px;
+}
+
+.text-gray{
+  color:var(--gray-500);
+}
+
+.text-primary{
+  color:var(--primary);
+}
+
+.font-bold{
+  font-weight:700;
+}
+
+.font-semibold{
+  font-weight:600;
+}
+
+.text-center{
+  text-align:center;
+}
+
+/* Borders */
+
+.border{
+  border:1px solid var(--gray-200);
+}
+
+.border-gray{
+  border:1px solid var(--gray-300);
+}
+
+.rounded-sm{
+  border-radius:var(--radius-sm);
+}
+
+.rounded{
+  border-radius:var(--radius);
+}
+
+.rounded-lg{
+  border-radius:var(--radius-lg);
+}
+
+/* Shadows */
+
+.shadow-sm{
+  box-shadow:var(--shadow-sm);
+}
+
+.shadow{
+  box-shadow:var(--shadow);
+}
+
+.shadow-lg{
+  box-shadow:var(--shadow-lg);
+}
+
+/* Inputs */
+.input{
+
+  padding:10px 12px;
+
+  border:1px solid var(--border);
+
+  border-radius:6px;
+
+  font-size:14px;
+
+  outline:none;
+
+}
+
+.input:focus{
+
+  border-color:var(--primary);
+
+}
+
+.btn{
+
+  padding:10px 16px;
+
+  border:none;
+
+  border-radius:6px;
+
+  font-size:14px;
+
+  cursor:pointer;
+
+}
+
+.btn-primary{
+
+  background:var(--primary);
+  color: var(--white);
+
+}
+.btn-gray{
+
+  background:var(--gray-100);
+  color: var(--text);
+
+}
+
+.btn-primary:hover{
+
+  background:var(--primary-hover);
+
+}
+
+.btn-danger{
+
+  background:var(--danger);
+  color:var(--white);
+}
+
+.btn-success{
+
+  background:var(--success);
+  color:var(--white);
+}
+
+.card{
+
+  background:var(--white);
+
+  border-radius:var(--radius);
+
+  box-shadow:var(--shadow-md);
+
+  padding:20px;
+
+  border:1px solid var(--border);
+
+}
+.card-soft{
+
+  background:var(--white);
+
+  border-radius:var(--radius);
+
+  box-shadow:var(--shadow-sm);
+
+  padding:20px;
+
+}
+.navbar{
+
+  height:60px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 20px;
+
+  background:var(--white);
+
+  border-bottom:1px solid var(--border);
+
+  box-shadow:var(--shadow-sm);
+
+}
+.nav-menu{
+
+  display:flex;
+  align-items:center;
+  gap:20px;
+
+}
+.nav-item{
+  position: relative;
+  font-size: 14px;
+  color: var(--text);
+  border-radius: 8px;
+}
+
+.nav-link{
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background .2s ease;
+}
+
+.nav-link:hover{
+  background: var(--gray-100);
+}
+
+
+.has-dropdown{
+  padding-bottom: 14px;
+  margin-bottom: -14px;
+}
+
+.dropdown-menu{
+  position: absolute;
+  top: calc(100% + 8px); 
+  left: 0;
+
+  min-width: 220px;
+
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+
+  padding: 10px 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+
+  z-index: 1000;
+}
+
+.has-dropdown:hover .dropdown-menu{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.dropdown-item:hover{
+  background: var(--gray-100);
+}
+.dropdown-icon{
+
+  width:18px;
+
+  opacity:.7;
+
+}
+
+.table{
+
+  width:100%;
+  border-collapse:collapse;
+
+}
+
+.table th{
+
+  text-align:left;
+
+  font-size:13px;
+
+  color:var(--text-light);
+
+  padding:12px;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+.table td{
+
+  padding:12px;
+
+  border-bottom:1px solid var(--gray-100);
+
+}
+
+.table tr:hover{
+
+  background:var(--gray-50);
+
+}
+.container{
+
+  max-width:1400px;
+
+  margin:auto;
+
+  padding:20px;
+
+}
+
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-effect::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: skewX(-25deg);
+    transition: all 0.7s;
+    pointer-events: none;
+}
+
+.shine-effect:hover::before {
+    left: 200%;
+}
