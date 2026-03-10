@@ -4,7 +4,6 @@ import LeavesPage from '@/pages/LeavesPage.vue'
 import LoginPage from '@/auth/LoginPage.vue'
 import MainLayout from '@/pages/MainLayout.vue'
 import EmployeePage from '@/pages/settings/EmployeePage.vue'
-import EmployeeModule from '@/components/EmployeeModule.vue'
 import RolePage from '@/pages/admin/RolePage.vue'
 import DepartmentPage from '@/pages/settings/DepartmentPage.vue'
 import ExtraBenefitDayPage from '@/pages/settings/ExtraBenefitDayPage.vue'
@@ -20,7 +19,7 @@ export const router = createRouter({
        children: [
         { path: '/dashboard', name: 'dashboard', component: DashboardPage } ,
         { path: '/leaves', name: 'leaves', component: LeavesPage },
-        { path: '/employees', name: 'employees', component: EmployeeModule },
+        { path: '/employees', name: 'employees', component: EmployeePage },
         /*Settings module*/
         { path: '/config/employees', name: 'config-employees', component: EmployeePage},
         { path: '/config/departments', name: 'config-departments', component: DepartmentPage},

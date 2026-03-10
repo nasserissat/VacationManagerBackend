@@ -6,7 +6,7 @@
         src="../assets/vm-logo-horizontal.png"
         alt="Logo"
         class="logo"
-        @click="router.push('/')"
+        @click="router.push('/dashboard')"
       >
 
       <div
@@ -110,6 +110,7 @@ function isParentActive(module) {
   height: 40px;
   width: auto;
   cursor: pointer;
+  margin-right: 40px;
   transition: transform 0.2s ease;
 }
 
