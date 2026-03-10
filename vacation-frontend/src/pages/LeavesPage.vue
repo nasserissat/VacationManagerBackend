@@ -7,7 +7,8 @@
       </div>
 
       <button class="btn btn-primary shine-effect" @click="openCreateModal">
-        Crear nueva solicitud
+        Crear nueva solicitud 
+        <fa-icon icon="plus" class="ml-1" />
       </button>
     </div>
 
@@ -174,7 +175,6 @@
 import { computed, ref } from 'vue'
 import ModalComponent from '@/components/modal.component.vue'
 import { VacationRequestListDto } from '@/models/vacation/VacationRequestListDto'
-import EmployeeModule from '@/components/EmployeeModule.vue'
 
 
 
