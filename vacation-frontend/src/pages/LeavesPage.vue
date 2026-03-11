@@ -1,19 +1,11 @@
 <template>
   <div class="page-section">
-    <div class="page-header">
-      <div>
-        <h1 class="page-title">Solicitudes de vacaciones</h1>
-        <p class="page-subtitle">Vista de las solicitudes y su estado.</p>
-      </div>
-
-      <button class="btn btn-primary shine-effect" @click="openCreateModal">
-        Crear nueva solicitud 
-        <fa-icon icon="plus" class="ml-1" />
-      </button>
+    <div>
+      <h1 class="page-title">Solicitudes de vacaciones</h1>
     </div>
+    <div class="page-header">
 
-    <div class="card mt-4">
-      <div class="table-toolbar">
+      <div class="table-toolbar card-soft">
         <div class="table-filters">
           <input
             v-model="search"
@@ -21,7 +13,7 @@
             type="text"
             placeholder="Buscar por empleado o ID"
           />
-
+  
           <select v-model="statusFilter" class="input table-select">
             <option :value="null">Tipos los estados</option>
             <option
@@ -32,7 +24,7 @@
               {{ option.label }}
             </option>
           </select>
-
+  
           <select v-model="typeFilter" class="input table-select">
               <option :value="null">Tipos los tipos</option>
             <option
@@ -43,9 +35,15 @@
               {{ option.label }}
             </option>
           </select>
-        </div>
-
+          <button class="btn btn-primary shine-effect" @click="openCreateModal">
+            Crear nueva solicitud 
+            <fa-icon icon="plus" class="ml-1" />
+          </button>
+        </div>  
       </div>
+    </div>
+
+    <div class="card mt-4">
 
       <div class="table-wrapper">
         <table class="table">
@@ -86,7 +84,7 @@
                     @click="edit(item.id)"
                     :disabled="item.status.description === 'Cancelled'"
                   >
-                    Editar
+                    <fa-icon icon="pen-to-square" />
                   </button>
 
                   <button
@@ -94,7 +92,7 @@
                     @click="cancel(item.id)"
                     :disabled="item.status.description === 'Cancelled'"
                   >
-                    Cancelar
+                    <fa-icon icon="ban" />
                   </button>
                 </div>
               </td>
@@ -380,15 +378,14 @@ vacation-modal {
 .page-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
 }
 
 .page-title {
   margin: 0;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--gray-500);
 }
 
 .page-subtitle {
@@ -399,8 +396,9 @@ vacation-modal {
 
 .table-toolbar {
   display: flex;
+  flex: 1;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   margin-bottom: 20px;
 }
@@ -409,10 +407,11 @@ vacation-modal {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
 .table-search {
+  flex: 1;
   min-width: 260px;
 }
 
