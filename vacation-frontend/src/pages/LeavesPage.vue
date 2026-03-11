@@ -111,7 +111,7 @@
       <div class="vacation-modal">
         <h2 class="modal-title">{{ modalTitle }}</h2>
         <p class="modal-subtitle">
-          Completa la información para registrar la solicitud de vacaciones.
+          Completa la información para {{editing ? 'editar' : 'registrar'}} la solicitud de vacaciones.
         </p>  
 
         <div class="form-grid">
@@ -142,25 +142,26 @@
               </option>
             </select>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Fecha inicio</label>
-            <input v-model="form.startDate" class="input" type="date" />
+            <div class="form-group">
+              <label class="form-label">Fecha inicio</label>
+              <input v-model="form.startDate" class="input" type="date" />
+            </div>
+  
+            <div class="form-group">
+              <label class="form-label">Fecha fin</label>
+              <input v-model="form.endDate" class="input" type="date" />
+            </div>
           </div>
-
-          <div class="form-group">
-            <label class="form-label">Fecha fin</label>
-            <input v-model="form.endDate" class="input" type="date" />
-          </div>
-        </div>
 
         <div class="modal-actions">
-          <button class="btn btn-gray" @click="closeModal">
-            Cancelar
+          <button class="btn btn-danger" @click="closeModal">
+            Cancelar 
+            <fa-icon icon="circle-xmark" class="ml-1" />
           </button>
 
           <button class="btn btn-primary shine-effect" :disabled="working" @click="saveRequest">
              {{ submitLabel }}
+             <fa-icon :icon="isEditing ? 'floppy-disk' : 'plus'" class="ml-1" />
           </button>
         </div>
       </div>
@@ -329,7 +330,8 @@ const employees = ref([
 </script>
 
 <style scoped>
-vacation-modal {
+
+.vacation-modal {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -339,24 +341,25 @@ vacation-modal {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  color: var(--text);
+  color: var(--gray-500);
 }
 
 .modal-subtitle {
   margin: 0;
   color: var(--text-light);
+  line-height: 1.5;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px 16px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .form-label {
@@ -365,10 +368,15 @@ vacation-modal {
   color: var(--text);
 }
 
+.vacation-modal .input {
+  padding: 14px 16px;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  margin-top: 8px;
 }
 
 .page-section {

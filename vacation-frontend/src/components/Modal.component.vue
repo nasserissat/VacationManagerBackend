@@ -105,8 +105,6 @@ onBeforeUnmount(() => {
 
 .base-modal-content {
   position: relative;
-
-  width: 100%;
   max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
@@ -115,7 +113,6 @@ onBeforeUnmount(() => {
   border: 1px solid var(--gray-100, #f1f1f1);
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
-
   padding: 24px;
 }
 
@@ -139,5 +136,15 @@ onBeforeUnmount(() => {
 .base-modal-close:hover {
   transform: scale(1.1);
   color: var(--danger, #ef4444);
+}
+
+@media (max-width: 768px) {
+  .base-modal-overlay {
+    padding: 16px 12px;
+  }
+
+  .base-modal-content {
+    padding: 24px 20px 20px;
+  }
 }
 </style>

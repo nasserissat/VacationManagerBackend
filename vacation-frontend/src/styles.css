@@ -65,7 +65,9 @@ body{
 .flex{
   display:flex;
 }
-
+.flex-1 {
+    flex: 1;
+}
 .flex-col{
   flex-direction:column;
 }
@@ -85,6 +87,10 @@ body{
 .justify-between{
   justify-content:space-between;
 }
+.w-full {
+  width:100%;
+}
+.w-2{ width: 50%; }
 
 .gap-1{ gap:4px; }
 .gap-2{ gap:8px; }
