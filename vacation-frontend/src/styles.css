@@ -22,8 +22,8 @@
 --warning: oklch(79.5% 0.184 86.047);
 
 
-  --gray-50:#fafafa;
-  --gray-100:#f1f1f1;
+  --gray-50:#F5F8FA;
+  --gray-100:#F5F8FA;
   --gray-200:#f3f4f6;
   --gray-300:#d1d5db;
   --gray-400:#9ca3af;
@@ -37,9 +37,11 @@
 
   /* sombras */
 
-  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);
-  --shadow:0 4px 6px rgba(0,0,0,0.1);
-  --shadow-lg:0 10px 25px rgba(0,0,0,0.15);
+--shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+--shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+--shadow-lg: 0 8px 20px rgba(15, 23, 42, 0.10);
+--shadow-xl: 0 12px 28px rgba(15, 23, 42, 0.12);
+
 
   /* border radius */
 
@@ -305,7 +307,7 @@ body{
 
   border-radius:var(--radius);
 
-  box-shadow:var(--shadow-md);
+  box-shadow:var( --shadow);
 
   border:1px solid var(--border);
 
@@ -468,7 +470,7 @@ cursor: default;
 
   color:var(--text-light);
 
-  padding:16px;
+  padding:20px;
 
   background:var(--gray-50);
 
@@ -478,7 +480,7 @@ cursor: default;
 
 .table td{
 
-  padding:12px;
+  padding:15px;
 
   border-bottom:1px solid var(--gray-100);
 

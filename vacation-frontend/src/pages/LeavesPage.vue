@@ -172,8 +172,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import ModalComponent from '@/components/modal.component.vue'
 import { VacationRequestListDto } from '@/models/vacation/VacationRequestListDto'
+import ModalComponent from '@/components/Modal.component.vue'
 
 
 
