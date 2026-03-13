@@ -1,8 +1,6 @@
 <template>
   <div class="page-section">
-    <div>
-      <h1 class="page-title">Solicitudes de vacaciones</h1>
-    </div>
+   <PageHeader title="Solicitudes de vacaciones" />
     <div class="card mt-4">
 
       <div class="table-wrapper card-soft">
@@ -74,24 +72,12 @@
               <td>{{ item.status.description }} </td>
               <td>{{ item.createdAt}}</td>
               <td class="actions-column">
-                <div class="row-actions">
-                  <button
-                    class="btn btn-gray btn-sm"
-                    @click="edit(item.id)"
-                    :disabled="item.status.description === 'Cancelled'"
-                  >
-                    <fa-icon icon="pen-to-square" />
-                  </button>
-
-                  <button
-                    class="btn btn-danger btn-sm"
-                    @click="cancel(item.id)"
-                    :disabled="item.status.description === 'Cancelled'"
-                  >
-                    <fa-icon icon="ban" />
-                  </button>
-                </div>
-              </td>
+                <RowActions
+                  :disabled="item.status.description === 'Cancelled'"
+                  @edit="edit(item.id)"
+                  @cancel="cancel(item.id)"
+                />
+              </td> 
             </tr>
           </tbody>
         </table>
@@ -170,7 +156,8 @@
 import { computed, ref } from 'vue'
 import { VacationRequestListDto } from '@/models/vacation/VacationRequestListDto'
 import ModalComponent from '@/components/Modal.component.vue'
-
+import PageHeader from '@/components/PageHeader.component.vue'
+import RowActions from '@/components/RowActions.component.vue'
 
 
 const search = ref('')
