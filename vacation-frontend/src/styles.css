@@ -58,6 +58,7 @@ body{
   margin:0;
   font-family: 'Roboto', sans-serif;
   color:var(--text);
+  background-color: var(--gray-50);
 
 }
  /* A continuación se aplican las clases CSS inspiradas en Tailwind CSS para facilitar la escritura del diseño */
@@ -474,9 +475,19 @@ cursor: default;
 
   background:var(--gray-50);
 
-  border-bottom:1px solid var(--border);
-
 }
+.table thead th {
+  border-radius: 0;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
 
 .table td{
 
@@ -497,7 +508,7 @@ cursor: default;
 
   margin:auto;
 
-  padding:20px;
+  padding: 20px;
 
 }
 

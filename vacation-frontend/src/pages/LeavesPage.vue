@@ -3,49 +3,45 @@
     <div>
       <h1 class="page-title">Solicitudes de vacaciones</h1>
     </div>
-    <div class="page-header">
-
-      <div class="table-toolbar card-soft">
-        <div class="table-filters">
-          <input
-            v-model="search"
-            class="input table-search"
-            type="text"
-            placeholder="Buscar por empleado o ID"
-          />
-  
-          <select v-model="statusFilter" class="input table-select">
-            <option :value="null">Tipos los estados</option>
-            <option
-              v-for="option in vacationStatusOptions"
-              :key="option.label"
-              :value="option.value"
-            >
-              {{ option.label }}
-            </option>
-          </select>
-  
-          <select v-model="typeFilter" class="input table-select">
-              <option :value="null">Tipos los tipos</option>
-            <option
-              v-for="option in vacationTypeOptions"
-              :key="option.label"
-              :value="option.value"
-            >
-              {{ option.label }}
-            </option>
-          </select>
-          <button class="btn btn-primary shine-effect" @click="openCreateModal">
-            Crear nueva solicitud 
-            <fa-icon icon="plus" class="ml-1" />
-          </button>
-        </div>  
-      </div>
-    </div>
-
     <div class="card mt-4">
 
-      <div class="table-wrapper">
+      <div class="table-wrapper card-soft">
+        <div class="table-toolbar">
+          <div class="table-filters">
+            <input
+              v-model="search"
+              class="input table-search"
+              type="text"
+              placeholder="Buscar por empleado o ID"
+            />
+    
+            <select v-model="statusFilter" class="input table-select">
+              <option :value="null">Tipos los estados</option>
+              <option
+                v-for="option in vacationStatusOptions"
+                :key="option.label"
+                :value="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+    
+            <select v-model="typeFilter" class="input table-select">
+                <option :value="null">Tipos los tipos</option>
+              <option
+                v-for="option in vacationTypeOptions"
+                :key="option.label"
+                :value="option.value"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+            <button class="btn btn-primary shine-effect" @click="openCreateModal">
+              Crear nueva solicitud 
+              <fa-icon icon="plus" class="ml-1" />
+            </button>
+          </div>  
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -380,20 +376,26 @@ const employees = ref([
 }
 
 .page-section {
-  padding: 24px;
+
+    padding: 0px 20px;
+
 }
 
 .page-header {
   display: flex;
   align-items: center;
   gap: 16px;
+  
 }
 
 .page-title {
+ border-radius: 8px;
   margin: 0;
   font-size: 24px;
   font-weight: 700;
   color: var(--gray-500);
+    background-color: var(--white);
+    padding: 20px;
 }
 
 .page-subtitle {
@@ -422,9 +424,26 @@ const employees = ref([
   flex: 1;
   min-width: 260px;
 }
+.table-search:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+  border: 0.5px;
+  background-color: var(--gray-50);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
 
 .table-select {
   min-width: 180px;
+  
+}
+.table-select:hover {
+  box-shadow: 0 0 0 1px var(--primary);
+  border: 0.5px;
+  background-color: var(--gray-50);
+  cursor: pointer;
+  transition: all 0.4s ease;
 }
 
 .table-wrapper {
