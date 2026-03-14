@@ -1,6 +1,6 @@
-import { EmployeeStatusEnum } from "@/models/enums/EmployeeStatusEnum"
+import { Item } from "../ItemModel"
 
-export interface EmployeeData {
+export interface EmployeeDataDto {
   firstName: string
   lastName: string
   email?: string | null
@@ -8,5 +8,5 @@ export interface EmployeeData {
   usedDays: number
   departmentId: number
   roleId: number
-  status: EmployeeStatusEnum
+  status: number
 }
