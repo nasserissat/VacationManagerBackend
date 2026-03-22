@@ -13,5 +13,7 @@ namespace vacation_backend.Application.Interfaces.IRepositories
         Task<int> CreateDepartmentAsync(Department data);
         Task<bool> UpdateDepartmentAsync(Department data);
         Task<bool> DeleteDepartmentAsync(Department department);
+
+        #endregion
     }
 }

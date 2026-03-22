@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using vacation_backend.Infrastructure;
 using VacationSeeder;
@@ -48,6 +48,8 @@ try
     var seeder = new DatabaseSeeder(context);
     await seeder.SeedAsync();
 
+    await DatabaseSeederNewEntities.SeedNewEntitiesAsync(context);
+
     Console.WriteLine();
     Console.WriteLine("===========================================");
     Console.WriteLine("   PROCESO COMPLETADO");
@@ -86,4 +88,4 @@ catch (Exception ex)
 
 Console.WriteLine();
 Console.WriteLine("Presiona cualquier tecla para salir...");
-Console.ReadKey();
+// Console.ReadKey();
