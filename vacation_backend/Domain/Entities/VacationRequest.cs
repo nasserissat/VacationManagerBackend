@@ -1,4 +1,4 @@
-﻿using vacation_backend.Domain.Enums;
+using vacation_backend.Domain.Enums;
 
 namespace vacation_backend.Domain.Entities
 {
@@ -25,10 +25,14 @@ namespace vacation_backend.Domain.Entities
 
         public int? ExtraBenefitDayId { get; set; } // Si en "VacationType" selecció un día extra, lo enlazo con la entidad correspondiente
 
-        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; } = null!;
         public virtual User? ApprovedBy { get; set; }
         public virtual User? LastModifiedBy { get; set; }
 
- 
+        public int? SubstituteEmployeeId { get; set; }
+        public virtual Employee? SubstituteEmployee { get; set; }
+
+        public virtual ICollection<VacationRequestAttachment>? Attachments { get; set; }
+        public virtual ICollection<VacationRequestAction>? Actions { get; set; }
     }
 }

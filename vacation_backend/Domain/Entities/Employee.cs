@@ -1,4 +1,4 @@
-﻿using vacation_backend.Domain.Enums;
+using vacation_backend.Domain.Enums;
 
 namespace vacation_backend.Domain.Entities
 {
@@ -15,11 +15,18 @@ namespace vacation_backend.Domain.Entities
         public int RoleId { get; set; }
         public EmployeeStatusEnum Status { get; set; }
 
+        // Propiedades de vacaciones
+        public int AvailableDays { get; set; }
+        public int UsedDays { get; set; }
+
         public virtual Department Department { get; set; } = null!;
         public virtual Role Role { get; set; } = null!;
 
         public virtual ICollection<EmployeeExtraBenefitDay>? EmployeeExtraBenefitDays { get; set; }
         public virtual ICollection<VacationRequest>? VacationRequests { get; set; }
+
+        public virtual ICollection<VacationBalanceLog>? VacationBalanceLogs { get; set; }
+        public virtual ICollection<VacationRequest>? SubstituteVacationRequests { get; set; }
 
         // Cálculos para saber si tiene días extras disponibles
         public int RemainingExtraBenefitDays =>
@@ -28,7 +35,8 @@ namespace vacation_backend.Domain.Entities
                 .Sum(x => x.RemainingDays) ?? 0;
 
         // Cálculo para saber si tiene vacaciones disponibles
-
+        public int RemainingDays => AvailableDays - UsedDays;
+        public bool HasAvailableDays => RemainingDays > 0;
         public bool HasAvailableExtraBenefitDays => RemainingExtraBenefitDays > 0;
 
     }

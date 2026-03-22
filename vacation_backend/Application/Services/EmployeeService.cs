@@ -1,4 +1,4 @@
-﻿using vacation_backend.Application.DTOs;
+using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Employee;
 using vacation_backend.Application.DTOs.Vacation;
 using vacation_backend.Application.Interfaces.IRepositories;
@@ -11,10 +11,12 @@ namespace vacation_backend.Application.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IVacationBalanceLogRepository _balanceLogRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IVacationBalanceLogRepository balanceLogRepository)
         {
             _employeeRepository = employeeRepository;
+            _balanceLogRepository = balanceLogRepository;
         }
 
         public async Task<List<EmployeeListDto>> GetAllEmployeesAsync(EmployeeFilterDto filters)
@@ -118,6 +120,20 @@ namespace vacation_backend.Application.Services
         public Task<OperationResultDto> DeleteEmployeeAsync(int employeeId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<VacationBalanceLogDto>> GetEmployeeBalanceLogsAsync(int employeeId)
+        {
+            var logs = await _balanceLogRepository.GetLogsByEmployeeIdAsync(employeeId);
+            return logs.Select(x => new VacationBalanceLogDto
+            {
+                Id = x.Id,
+                EmployeeId = x.EmployeeId,
+                DaysChanged = x.DaysChanged,
+                Reason = x.Reason,
+                TransactionDate = x.TransactionDate,
+                VacationRequestId = x.VacationRequestId
+            }).ToList();
         }
     }
 }

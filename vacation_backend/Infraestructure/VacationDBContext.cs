@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using vacation_backend.Domain.Entities;
 
 namespace vacation_backend.Infrastructure
@@ -19,6 +19,10 @@ namespace vacation_backend.Infrastructure
         public DbSet<EmployeeExtraBenefitDay> EmployeeExtraBenefitDays { get; set; }
         public DbSet<Holiday> Holidays { get; set; }
 
+        public DbSet<VacationBalanceLog> VacationBalanceLogs { get; set; }
+        public DbSet<VacationRequestAction> VacationRequestActions { get; set; }
+        public DbSet<CompanyPolicy> CompanyPolicies { get; set; }
+        public DbSet<VacationRequestAttachment> VacationRequestAttachments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RolePermission>()
@@ -52,7 +56,17 @@ namespace vacation_backend.Infrastructure
                 .HasIndex(x => new { x.EmployeeId, x.ExtraBenefitDayId, x.Year })
                 .IsUnique();
 
+            modelBuilder.Entity<VacationRequest>()
+                .HasOne(v => v.SubstituteEmployee)
+                .WithMany(e => e.SubstituteVacationRequests)
+                .HasForeignKey(v => v.SubstituteEmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<VacationRequestAction>()
+                .HasOne(a => a.ActionByUser)
+                .WithMany()
+                .HasForeignKey(a => a.ActionByUserId)
+                .OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(modelBuilder);
         }
     }

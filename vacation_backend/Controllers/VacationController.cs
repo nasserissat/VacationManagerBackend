@@ -19,7 +19,7 @@ namespace vacation_backend.Controllers
 
         }
         [HttpGet]
-        public async Task<ActionResult<VacationBalanceDto> GetCurrentVacationBalance(int employeeId)
+        public async Task<ActionResult<VacationBalanceDto>> GetCurrentVacationBalance(int employeeId)
         {
             var result = await _vacationService.GetCurrentVacationBalanceAsync(employeeId);
             if (result == null)
