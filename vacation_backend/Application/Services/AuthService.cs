@@ -1,4 +1,4 @@
-using vacation_backend.Application.DTOs.Auth;
+Ôªøusing vacation_backend.Application.DTOs.Auth;
 using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
 using vacation_backend.Domain.Enums;
@@ -24,28 +24,28 @@ namespace vacation_backend.Application.Services
                 return new AuthResponseDto
                 {
                     Success = false,
-                    Message = "Usuario o contraseÒa incorrectos"
+                    Message = "Usuario o contrase√±a incorrectos"
                 };
             }
 
-            // Verificar que el usuario estÈ activo
+            // Verificar que el usuario est√© activo
             if (user.Status != StatusEnum.Active)
             {
                 return new AuthResponseDto
                 {
                     Success = false,
-                    Message = "El usuario est· inactivo"
+                    Message = "El usuario est√° inactivo"
                 };
             }
 
-            // VerificaciÛn simple de contraseÒa (sin hash por ahora, ya que es temporal)
-            // NOTA: Esto ser· reemplazado por Active Directory
-            if (user.PasswordHash != loginRequest.Password)
+            // Verificaci√≥n simple de contrase√±a (sin hash por ahora, ya que es temporal)
+            // NOTA: Esto ser√° reemplazado por Active Directory
+            if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
             {
                 return new AuthResponseDto
                 {
                     Success = false,
-                    Message = "Usuario o contraseÒa incorrectos"
+                    Message = "Usuario o contrase√±a incorrectos"
                 };
             }
 
@@ -66,3 +66,4 @@ namespace vacation_backend.Application.Services
         }
     }
 }
+
