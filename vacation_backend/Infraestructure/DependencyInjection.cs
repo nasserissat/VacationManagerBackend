@@ -1,7 +1,8 @@
-﻿using vacation_backend.Application.Interfaces.IRepositories;
+using vacation_backend.Application.Interfaces.IRepositories;
 using vacation_backend.Application.Interfases.IServices;
 using vacation_backend.Application.Services;
 using vacation_backend.Infraestructure.Repositories;
+using vacation_backend.Infrastructure.Repositories;
 
 namespace vacation_backend.Infraestructure
 {
@@ -13,6 +14,10 @@ namespace vacation_backend.Infraestructure
             services.AddScoped<ISettingRepository, SettingRepository>();
             services.AddScoped<IVacationRepository, VacationRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICompanyPolicyRepository, CompanyPolicyRepository>();
+            services.AddScoped<IVacationBalanceLogRepository, VacationBalanceLogRepository>();
+            services.AddScoped<IVacationRequestActionRepository, VacationRequestActionRepository>();
+            services.AddScoped<IVacationRequestAttachmentRepository, VacationRequestAttachmentRepository>();
 
             return services;
         }

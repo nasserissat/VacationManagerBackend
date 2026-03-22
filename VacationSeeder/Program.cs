@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using vacation_backend.Infrastructure;
 using VacationSeeder;
@@ -47,6 +47,8 @@ try
     // Ejecutar el seeder
     var seeder = new DatabaseSeeder(context);
     await seeder.SeedAsync();
+
+    await DatabaseSeederNewEntities.SeedNewEntitiesAsync(context);
 
     Console.WriteLine();
     Console.WriteLine("===========================================");

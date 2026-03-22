@@ -22,6 +22,28 @@ namespace vacation_backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("vacation_backend.Domain.Entities.CompanyPolicy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DailyWorkHours")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("WorksOnSaturdays")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WorksOnSundays")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompanyPolicies");
+                });
+
             modelBuilder.Entity("vacation_backend.Domain.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -271,6 +293,39 @@ namespace vacation_backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationBalanceLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DaysChanged")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("VacationRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("VacationRequestId");
+
+                    b.ToTable("VacationBalanceLogs");
+                });
+
             modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -312,6 +367,9 @@ namespace vacation_backend.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SubstituteEmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("VacationType")
                         .HasColumnType("int");
 
@@ -323,7 +381,71 @@ namespace vacation_backend.Migrations
 
                     b.HasIndex("LastModifiedById");
 
+                    b.HasIndex("SubstituteEmployeeId");
+
                     b.ToTable("VacationRequests");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequestAction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActionByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VacationRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionByUserId");
+
+                    b.HasIndex("VacationRequestId");
+
+                    b.ToTable("VacationRequestActions");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequestAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VacationRequestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VacationRequestId");
+
+                    b.ToTable("VacationRequestAttachments");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Employee", b =>
@@ -400,6 +522,23 @@ namespace vacation_backend.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationBalanceLog", b =>
+                {
+                    b.HasOne("vacation_backend.Domain.Entities.Employee", "Employee")
+                        .WithMany("VacationBalanceLogs")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vacation_backend.Domain.Entities.VacationRequest", "VacationRequest")
+                        .WithMany()
+                        .HasForeignKey("VacationRequestId");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("VacationRequest");
+                });
+
             modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequest", b =>
                 {
                     b.HasOne("vacation_backend.Domain.Entities.User", "ApprovedBy")
@@ -416,16 +555,57 @@ namespace vacation_backend.Migrations
                         .WithMany()
                         .HasForeignKey("LastModifiedById");
 
+                    b.HasOne("vacation_backend.Domain.Entities.Employee", "SubstituteEmployee")
+                        .WithMany("SubstituteVacationRequests")
+                        .HasForeignKey("SubstituteEmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("ApprovedBy");
 
                     b.Navigation("Employee");
 
                     b.Navigation("LastModifiedBy");
+
+                    b.Navigation("SubstituteEmployee");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequestAction", b =>
+                {
+                    b.HasOne("vacation_backend.Domain.Entities.User", "ActionByUser")
+                        .WithMany()
+                        .HasForeignKey("ActionByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("vacation_backend.Domain.Entities.VacationRequest", "VacationRequest")
+                        .WithMany("Actions")
+                        .HasForeignKey("VacationRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActionByUser");
+
+                    b.Navigation("VacationRequest");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequestAttachment", b =>
+                {
+                    b.HasOne("vacation_backend.Domain.Entities.VacationRequest", "VacationRequest")
+                        .WithMany("Attachments")
+                        .HasForeignKey("VacationRequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VacationRequest");
                 });
 
             modelBuilder.Entity("vacation_backend.Domain.Entities.Employee", b =>
                 {
                     b.Navigation("EmployeeExtraBenefitDays");
+
+                    b.Navigation("SubstituteVacationRequests");
+
+                    b.Navigation("VacationBalanceLogs");
 
                     b.Navigation("VacationRequests");
                 });
@@ -443,6 +623,13 @@ namespace vacation_backend.Migrations
             modelBuilder.Entity("vacation_backend.Domain.Entities.Role", b =>
                 {
                     b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("vacation_backend.Domain.Entities.VacationRequest", b =>
+                {
+                    b.Navigation("Actions");
+
+                    b.Navigation("Attachments");
                 });
 #pragma warning restore 612, 618
         }

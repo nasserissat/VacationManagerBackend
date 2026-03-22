@@ -1,4 +1,4 @@
-﻿using vacation_backend.Application.DTOs;
+using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Vacation;
 
 namespace vacation_backend.Application.Interfases.IServices
@@ -40,6 +40,9 @@ namespace vacation_backend.Application.Interfases.IServices
         Task<OperationResultDto> RejectVacationRequestAsync(int id, int rejectedById, string? reason);
         // Cancela una solicitud de vacaciones.
         Task<OperationResultDto> CancelVacationRequestAsync(int id, int canceledById, string? reason);
+
+        Task<OperationResultDto> AddVacationRequestActionAsync(CreateVacationRequestActionDto dto);
+        Task<int> AddVacationRequestAttachmentAsync(int vacationRequestId, string fileName, string fileUrl);
         #endregion
 
 

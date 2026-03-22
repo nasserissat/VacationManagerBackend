@@ -1,4 +1,4 @@
-﻿using vacation_backend.Domain.Enums;
+using vacation_backend.Domain.Enums;
 
 namespace vacation_backend.Domain.Entities
 {
@@ -24,6 +24,9 @@ namespace vacation_backend.Domain.Entities
 
         public virtual ICollection<EmployeeExtraBenefitDay>? EmployeeExtraBenefitDays { get; set; }
         public virtual ICollection<VacationRequest>? VacationRequests { get; set; }
+
+        public virtual ICollection<VacationBalanceLog>? VacationBalanceLogs { get; set; }
+        public virtual ICollection<VacationRequest>? SubstituteVacationRequests { get; set; }
 
         // Cálculos para saber si tiene días extras disponibles
         public int RemainingExtraBenefitDays =>

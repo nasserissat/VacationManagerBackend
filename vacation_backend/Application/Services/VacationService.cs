@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using vacation_backend.Application.DTOs;
 using vacation_backend.Application.DTOs.Vacation;
 using vacation_backend.Application.Interfaces.IRepositories;
@@ -9,9 +9,17 @@ namespace vacation_backend.Application.Services
     public class VacationService : IVacationService
     {
         private readonly IVacationRepository _vacationRepository;
-        public VacationService(IVacationRepository vacationRepository)
+        private readonly IVacationRequestActionRepository _actionRepository;
+        private readonly IVacationRequestAttachmentRepository _attachmentRepository;
+
+        public VacationService(
+            IVacationRepository vacationRepository,
+            IVacationRequestActionRepository actionRepository,
+            IVacationRequestAttachmentRepository attachmentRepository)
         {
             _vacationRepository = vacationRepository;
+            _actionRepository = actionRepository;
+            _attachmentRepository = attachmentRepository;
         }
 
         public Task<OperationResultDto> ApproveVacationRequestAsync(int id, int approvedById)
@@ -74,9 +82,35 @@ namespace vacation_backend.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<OperationResultDto> UpdateVacationRequestDatesAsync(int id, DateTime startDate, DateTime endDate, int modifiedById)
+        public Task<OperationResultDto> UpdateVacationRequestDatesAsync(int id, System.DateTime startDate, System.DateTime endDate, int modifiedById)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<OperationResultDto> AddVacationRequestActionAsync(CreateVacationRequestActionDto dto)
+        {
+            var action = new vacation_backend.Domain.Entities.VacationRequestAction
+            {
+                VacationRequestId = dto.VacationRequestId,
+                ActionByUserId = dto.ActionByUserId,
+                ActionType = dto.ActionType,
+                Comments = dto.Comments,
+                CreatedAt = System.DateTime.UtcNow
+            };
+            await _actionRepository.CreateActionAsync(action);
+            return new OperationResultDto { Success = true, Message = "Action added successfully" };
+        }
+
+        public async Task<int> AddVacationRequestAttachmentAsync(int vacationRequestId, string fileName, string fileUrl)
+        {
+            var attachment = new vacation_backend.Domain.Entities.VacationRequestAttachment
+            {
+                VacationRequestId = vacationRequestId,
+                FileName = fileName,
+                FilePath = fileUrl,
+                UploadedAt = System.DateTime.UtcNow
+            };
+            return await _attachmentRepository.AddAttachmentAsync(attachment);
         }
     }
 }
